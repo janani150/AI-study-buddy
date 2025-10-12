@@ -1,10 +1,10 @@
 import streamlit as st
 from transformers import pipeline
 
-# Initialize Hugging Face pipelines
-explainer = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
-quiz_generator = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
-summarizer = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
+# Initialize Hugging Face pipelines (now using PyTorch backend)
+explainer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+quiz_generator = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+summarizer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
 
 # Helper functions
 def explain_topic(topic):
