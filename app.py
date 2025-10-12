@@ -2,9 +2,9 @@ import streamlit as st
 from transformers import pipeline
 
 # Initialize Hugging Face pipelines
-explainer = pipeline("text2text-generation", model="google/flan-t5-base")
-quiz_generator = pipeline("text2text-generation", model="google/flan-t5-base")
-summarizer = pipeline("text2text-generation", model="google/flan-t5-small")
+explainer = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
+quiz_generator = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
+summarizer = pipeline("text2text-generation", model="google/flan-t5-small", framework="tf")
 
 # Helper functions
 def explain_topic(topic):
