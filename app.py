@@ -1,10 +1,17 @@
 import streamlit as st
 from transformers import pipeline
+import torch  # Explicit import for safety
 
-# Initialize Hugging Face pipelines (now using PyTorch backend)
-explainer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
-quiz_generator = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
-summarizer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+# Cache pipelines to load only once (fixes reload issues in Streamlit)
+@st.cache_resource
+def load_pipelines():
+    explainer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+    quiz_generator = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+    summarizer = pipeline("text2text-generation", model="google/flan-t5-small", framework="pt")
+    return explainer, quiz_generator, summarizer
+
+# Load once
+explainer, quiz_generator, summarizer = load_pipelines()
 
 # Helper functions
 def explain_topic(topic):
